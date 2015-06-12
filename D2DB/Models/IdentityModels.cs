@@ -53,8 +53,8 @@ namespace D2DB.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Item>()
-                .HasOptional(a => a.)
+            //modelBuilder.Entity<Item>()
+            //    .HasOptional(a => a.)
 
             base.OnModelCreating(modelBuilder);
         }
