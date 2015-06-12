@@ -1,0 +1,31 @@
+﻿@model D2DB.Models.ViewItemsViewModel
+@{
+    ViewBag.Title = "ViewItems";
+}
+@section Scripts {
+   
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.0.js"></script>
+    <script src="~/Scripts/View.js"></script>
+    <script type="text/javascript">
+
+    var vm = @Html.Raw(Model.JSON)
+      vm.now =new Date('@Html.Raw(DateTime.Now)') ; //deflate Items
+   
+            for(var i = 0 ; i < vm.Items.length; i++)
+            {
+                vm.Items[i].item = JSON.parse(vm.Items[i].Json)
+            }
+
+    
+
+    </script>
+}
+<div ng-app="D2DB">
+
+    <div ng-controller="View">
+
+       
+           <div ng-repeat="it in vm.Items"> {{it.item.name + " " + it.Character + " " + it.realm }}</div>
+        </div>
+</div>

@@ -1,0 +1,27 @@
+body{background:black;text-align:center;font-weight: bold;font-family:arial,helvetica;color:white;}
+p {font-family:arial,helvetica;}
+.g {color:#505050;}
+.n {color:#C6C4C5;}
+.m {color:#787CE7;}
+.s {color:#00CA00;}/*#3FCE3E*/
+.r {color:#F5F792;}/*C4C874*/
+.u {color:#AFA669;}/*#E2D39A*/
+.c {color:#C88831;}
+.e {color:red;}
+div.stashexp_bg {background:url('inv/Panel/TradeStash.png');width:320px;height:432px;float:left;}
+div.invexp_bg {background:url('inv/Panel/invchar6.png');width:320px;height:432px;background-position: 0px 432px;float:left;}
+div.cube_bg {background:url('inv/Panel/supertransmogrifier.png');width:320px;height:432px;float:left;}
+div.hireling_bg {background:url('inv/Panel/NpcInv.png');width:320px;height:432px;float:left;}
+div.deadbody_bg {background:url('inv/Panel/NpcInv.png');width:320px;height:432px;float:left;}
+div.stashexp_rel {margin-top: 83px;margin-left: 74px;position:relative;}
+div.invexp_rel {margin-top: 255px;margin-left: 18px;position:relative;}
+div.cube_rel {margin-top: 138px;margin-left: 118px;position:relative;}
+div.hireling_rel {margin-top: 255px;margin-left: 18px;position:relative;}
+div.holder {position: relative; z-index: 1000; visibility:hidden;}
+div.stats {color: #C6C4C5; background: rgba(0,0,0,0.75); display: inline-block; }
+div.item {background-color: rgba(0,0,255,0.15);background-repeat:no-repeat;}
+div.equiped {background-color: transparent;}
+div.illegal {background-color: rgba(255,0,0,0.15);}
+div.item:hover {background-color: rgba(0,255,0,0.15);}
+div.item:hover div.holder {visibility:visible;}
+div.item:hover div.holder:hover {visibility:hidden;}

@@ -1,0 +1,41 @@
+﻿@model D2DB.Models.homeIndexViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@if (Model.User == null)
+{
+    <h3>Login</h3>
+}
+else
+{
+
+    using (Html.BeginForm("Index", "Home", FormMethod.Post, null))
+    {
+        <div class="well">
+            <div class="form-group">
+                <label>Display Name</label>
+                @Html.EditorFor(x => Model.User.DisplayName)
+            </div>
+            <div class="form-group">
+                <label>Upload Id:</label>
+                @Html.DisplayFor(x => Model.User.PublicId)
+            </div>
+            <button type="submit" class="btn btn-default">Update</button>
+        </div>
+    }
+
+
+
+       <a href="@Url.Action("ViewUser", "Home", new { id =Model.User.Id }) ">Public Page</a>
+
+    <ul>
+        @foreach (var account in Model.User.Accounts)
+        {
+        <li class="btn btn-default">
+            <a href="@Url.Action("ViewAccount","Home", new {id = account.Id} )"> @(Html.DisplayFor(x => account.Name))</a>
+        </li>
+        }
+    </ul>
+
+}
