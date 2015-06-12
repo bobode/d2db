@@ -25,16 +25,84 @@ else
         </div>
     }
 
-
-
-       <a href="@Url.Action("ViewUser", "Home", new { id =Model.User.Id }) ">Public Page</a>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        View D2bs Upload Script
+    </button>
+    <div class="collapse" id="collapseExample">
+        <div class="well">
+            <pre>  <code>
+//Load this script to upload account                                 
+function main() 
+{
+   var Info =
+   {
+        AccountId:"@Html.DisplayFor(x => Model.User.PublicId)",
+	    Account:me.gameserverip =="" ? "Single Player" :  me.account,
+	    Realm: me.realm,
+	    Ladder: ((me.playertype ? "sc " : "hc ") + me.ladder == 1 ? "l" : "" ),
+	    CharName : me.name,
+	    Class: me.classid,
+	    Level: me.charlvl,
+	    Items: JSON.stringify(getItems())
+   }
+   
+	var a = Socket.open("bobode.dlinkddns.com",80);
+	var msg = JSON.stringify(Info)
+	var head = "POST /d2db/updateAccount HTTP/1.1\n";
+	head = head + "Content-Type: application/x-www-form-urlencoded\n"
+	head = head + "Host: 192.168.0.100\n"
+	head = head + "Connection: keep-alive\n"
+	head = head + "Content-Length: "+ msg.length + "\n\n";
+	
+	head = head + msg
+	a.send(head)
+	a.close();
+}
+Unit.prototype.__defineGetter__('itemFile',
+	function() {
+	return getBaseStat(0, this.classid, 'invfile');
+	return this.uniqueid == -1 ? getBaseStat(0, this.classid, 'invfile'):getBaseStat(0, this.classid, 'uniqueinvfile')
+	}
+);
+function getItems(){
+     var a = me.getItems();
+     var ret = [];
+     for (var j = 0 ; j < a.length; j++)
+     { 
+	    var it = a[j];
+	    ret.push({name: it.fname, 
+				file:it.itemFile,
+				x:it.x, 
+				y: it.y,
+				mode: it.mode,
+				classId: it.classid,
+				code:it.code,
+				prefixes:it.prefixes,
+				suffixes: it.suffixes,
+				node: it.node,
+				location: it.location,
+				sixex: it.sizex,
+				sizey: it.sizey,
+				itemType: it.itemType,
+				description: it.description,
+				bodylocation: it.bodylocation,
+				ilvl: it.ilvl,
+				});
+     }
+     return ret;
+}
+            </code></pre>
+        </div>
+    </div>
+    <br />
+    <a href="@Url.Action("ViewUser", "Home", new { id =Model.User.Id }) ">Public Page</a>
 
     <ul>
         @foreach (var account in Model.User.Accounts)
         {
-        <li class="btn btn-default">
-            <a href="@Url.Action("ViewAccount","Home", new {id = account.Id} )"> @(Html.DisplayFor(x => account.Name))</a>
-        </li>
+            <li class="btn btn-default">
+                <a href="@Url.Action("ViewAccount","Home", new {id = account.Id} )"> @(Html.DisplayFor(x => account.Name))</a>
+            </li>
         }
     </ul>
 
