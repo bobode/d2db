@@ -25,21 +25,30 @@
     </script>
 }
 
-<h2>@Html.DisplayFor(x => Model.Owner)</h2>
+
 
 <div ng-app="D2DB">
+    <div class="row">
+        <h2 class="col-sm-10">@Html.DisplayFor(x => Model.Owner)</h2>
 
+        <input style="margin-top:30px;" class="col-sm-2" placeholder="Search" ng-model="search.$">
+    </div>
     <div ng-controller="View">
+       
 
         <tabset>
-            <tab heading="{{accounts.Name}}" ng-repeat="accounts in vm.Accounts">
+            <tab heading="{{accounts.Name}}" ng-repeat="accounts in vm.Accounts"
+                 ng-show="accounts.filtered > 0   ">
+                <p ng-hide="true">{{accounts.filtered = 0}}</p>
                 <tabset>
-                    <tab heading="{{car.Name}}" ng-repeat="car in accounts.Characters">
+                    <tab heading="{{car.Name}}" ng-repeat="car in accounts.Characters" ng-show="car.filtered > 0 ">
+                        <p ng-hide="true">{{accounts.filtered = 1}}</p>
                         <div class="row">
 
                             <div class="stashexp_bg">
                                 <div class="stashexp_rel">
-                                    <div class="item" ng-repeat="It in car.Items" ng-if="It.item.location ==7" style="background-image:url({{'/inv/' + It.item.file +'.png'}}); width:{{It.item.sixex *29}}px;height:{{It.item.sizey*29}}px;background-position: 0px 0px;position:absolute;left:{{It.item.x *29 }}px;top:{{ It.item.y *29 }}px;">
+                                    <p ng-hide="true">{{items = (car.Items | filter:search)}}{{car.filtered = items.length }}</p>
+                                    <div class="item" ng-repeat="It in items" ng-if="It.item.location ==7" style="background-image:url({{'/inv/' + It.item.file +'.png'}}); width:{{It.item.sixex *29}}px;height:{{It.item.sizey*29}}px;background-position: 0px 0px;position:absolute;left:{{It.item.x *29 }}px;top:{{ It.item.y *29 }}px;">
 
                                         <div class="holder" style="left:-221px;top:58px;width:500px;">
                                             <div class="stats" ng-bind-html="buildDiscription(It.item) | rawHtml">
@@ -50,7 +59,7 @@
                             </div>
                             <div class="invexp_bg">
                                 <div class="invexp_rel">
-                                    <div class="item" ng-repeat="It in car.Items" ng-if="It.item.location == 1 ||It.item.location == 3" style="background-image:url({{'/inv/' + It.item.file +'.png'}}); width:{{It.item.sixex *29}}px;height:{{It.item.sizey*29}}px;background-position: 0px 0px;position:absolute;left:{{getItemPosition(It.item).x }}px;top:{{ getItemPosition(It.item).y }}px;">
+                                    <div class="item" ng-repeat="It in items" ng-if="It.item.location == 1 ||It.item.location == 3" style="background-image:url({{'/inv/' + It.item.file +'.png'}}); width:{{It.item.sixex *29}}px;height:{{It.item.sizey*29}}px;background-position: 0px 0px;position:absolute;left:{{getItemPosition(It.item).x }}px;top:{{ getItemPosition(It.item).y }}px;">
 
                                         <div class="holder" style="left:-221px;top:58px;width:500px;">
                                             <div class="stats">
@@ -63,7 +72,7 @@
                             </div>
                             <div class="cube_bg">
                                 <div class="cube_rel">
-                                    <div class="item" ng-repeat="It in car.Items" ng-if="It.item.location == 6" style="background-image:url({{'/inv/' + It.item.file +'.png'}}); width:{{It.item.sixex *29}}px;height:{{It.item.sizey*29}}px;background-position: 0px 0px;position:absolute;left:{{It.item.x *29 }}px;top:{{ It.item.y *29 }}px;">
+                                    <div class="item" ng-repeat="It in items" ng-if="It.item.location == 6" style="background-image:url({{'/inv/' + It.item.file +'.png'}}); width:{{It.item.sixex *29}}px;height:{{It.item.sizey*29}}px;background-position: 0px 0px;position:absolute;left:{{It.item.x *29 }}px;top:{{ It.item.y *29 }}px;">
 
                                         <div class="holder" style="left:-221px;top:58px;width:500px;">
                                             <div class="stats" ng-bind-html="buildDiscription(It.item) | rawHtml">
@@ -86,10 +95,13 @@
                                     <button ng-click="deleteChar(car, accounts)">Delete Character</button>
 
                                 }
+                                 <br />
+                               
+                                
                             </div>
                         </div>
                     </tab>
-                    
+
                 </tabset>
             </tab>
         </tabset>
